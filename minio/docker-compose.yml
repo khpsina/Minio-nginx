@@ -1,0 +1,22 @@
+services:
+  minio_service:
+    image: minio/minio:latest
+    container_name: minio_service
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: password123
+      MINIO_BROWSER_REDIRECT_URL: http://localhost:50018/minio-console/
+    volumes:
+      - ./minio_data:/data
+    expose:
+      - "9000"
+      - "9001"
+    networks:
+      - web
+    ports:
+      - "50017:9000"  # API مستقیم در صورت نیاز
+
+networks:
+  web:
+    external: true

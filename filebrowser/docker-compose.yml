@@ -1,0 +1,17 @@
+services:
+  filebrowser:
+    image: filebrowser/filebrowser:latest
+    container_name: filebrowser
+    restart: unless-stopped
+    command: ["--root", "/srv", "--baseurl", "/filebrowser"]
+    volumes:
+      - ./srv:/srv
+      - ./config:/config
+    expose:
+      - "80"
+    networks:
+      - web
+
+networks:
+  web:
+    external: true
